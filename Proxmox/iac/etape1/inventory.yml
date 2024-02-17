@@ -1,0 +1,6 @@
+all:
+  children:
+    proxmox_hosts:
+      hosts:
+        proxmox_local:
+          ansible_host: '{{ lookup("env", "proxmox_ip") or "192.168.1.64" }}'

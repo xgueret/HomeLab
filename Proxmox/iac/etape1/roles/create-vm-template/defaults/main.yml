@@ -1,0 +1,11 @@
+---
+# defaults file for roles/create-vm-template
+cloud_image_url: https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64-disk-kvm.img
+cloud_image_path: /tmp/ubuntu-22.04-server-cloudimg-amd64-disk-kvm.img
+cloud_image_url_checksum: sha256:48c922978584cd3ae85f641e0bafb5a53f8bf0902e394f785ba448e47f46757C
+template_root_passwd: '{{ lookup("env", "template_root_passwd") or "rootpasswd" }}'
+template_name: "ubuntu-2204-cloudinit-template"
+template_id: 9001
+template_memory: 2048
+template_cpu: 2
+template_desc: "ubuntu 22.04 server cloudimg-amd64-disk-kvm"

@@ -1,0 +1,79 @@
+---
+# tasks file for roles/configure-kubeadm-kubelet
+- name: Check if kubelet exists
+  ansible.builtin.stat:
+    path: /etc/systemd/system/kubelet.service
+  register: kubelet_stat
+
+- name: Download and extract kubelet
+  when: not kubelet_stat.stat.exists
+  block:
+    - name: load overlay kernel module
+      ansible.builtin.command: modprobe overlay
+
+    - name: load br_netfilter kernel module
+      ansible.builtin.command: modprobe br_netfilter
+
+    - name: load kernel modules - persistent
+      ansible.builtin.blockinfile:
+        path: /etc/modules-load.d/containerd.conf
+        create: yes
+        block: |
+          overlay
+          br_netfilter
+
+    - name: Modify sysctl parameters - persistent
+      ansible.builtin.blockinfile:
+        path: /etc/sysctl.d/99-kubernetes-cri.conf
+        create: yes
+        block: |
+          net.bridge.bridge-nf-call-iptables  = 1
+          net.ipv4.ip_forward                 = 1
+          net.bridge.bridge-nf-call-ip6tables = 1 
+
+    - name: load br_netfilter kernel module
+      ansible.builtin.command: sysctl --system
+
+    - name: Make the Swap inactive
+      ansible.builtin.command: swapoff -a
+
+    - name: Remove Swap entry from /etc/fstab.
+      ansible.builtin.lineinfile:
+        dest: /etc/fstab
+        regexp: swap
+        state: absent
+    
+    - name: Add Google GPG apt Key
+      ansible.builtin.apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+    
+    - name: Add K8s Repository
+      ansible.builtin.apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+    
+    - name: Install kubelet kubeadm kubectl
+      ansible.builtin.apt: 
+        name: 
+          - kubelet={{ kubernetes_version }}*
+          - kubeadm={{ kubernetes_version }}*
+          - kubectl={{ kubernetes_version }}*
+        state: present
+        update_cache: yes 
+
+    - name: Prevent kubelet/kubeadm/kubectl from being upgraded
+      ansible.builtin.dpkg_selections:
+        name: "{{ item }}"
+        selection: hold
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl
+
+    - name: Reload systemd daemon enable and restart kubelet service
+      ansible.builtin.systemd:
+        daemon_reload: true
+        enabled: true
+        state: restarted
+        name: kubelet

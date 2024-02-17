@@ -1,0 +1,4 @@
+---
+# tasks file for roles/bootstrap-vm
+- name: Configure SSH
+  ansible.builtin.include_tasks: configure-ssh.yml

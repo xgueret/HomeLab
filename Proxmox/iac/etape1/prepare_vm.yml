@@ -1,0 +1,12 @@
+---
+- hosts: proxmox_hosts
+  name: Create VM Template
+  become: yes
+  
+  roles:
+    - role: bootstrap-vm
+      tags:
+        - bootstrap-vm
+    - role: create-vm-template
+      tags:
+        - create_vm_template

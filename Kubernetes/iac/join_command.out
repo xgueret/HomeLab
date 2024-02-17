@@ -1,0 +1,1 @@
+kubeadm join 192.168.1.10:6443 --token yxouqg.prkms425r0h23619 --discovery-token-ca-cert-hash sha256:dbf0274ac62906bdb26dd0a16774dfff0829118b6381970dcb9fe1e88221dfce
