@@ -142,25 +142,40 @@ ansible-playbook -u ansible prepare_vm.yml --tags "create_vm_template"
 
 ### Etape 2: provisionner des vms pour le cluster k8s
 
-> se connecter au serveur proxmox
->
-> ```shell
-> ssh root@192.168.1.64
-> ```
->
-> créer un Role **TerraformProv**
->
-> ```shell
-> pveum role add TerraformProv -privs "Datastore.AllocateSpace Datastore.Audit Pool.Allocate Sys.Audit Sys.Console Sys.Modify VM.Allocate VM.Audit VM.Clone VM.Config.CDROM VM.Config.Cloudinit VM.Config.CPU VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Migrate VM.Monitor VM.PowerMgmt"
-> pveum user add terraform-prov@pve --password secure1234
-> pveum aclmod / -user terraform-prov@pve -role TerraformProv
-> ```
->
-> créer un token
->
-> ```shell
-> pveum user token add terraform-prov@pve terraform -expire 0 -privsep 0 -comment "Terraform token"
-> ```
+se connecter au serveur proxmox
+
+
+
+```shell
+ssh root@192.168.1.64
+```
+
+créer un Role **TerraformProv**
+
+```shell
+pveum role add TerraformProv -privs "Datastore.AllocateSpace Datastore.Audit Pool.Allocate Sys.Audit Sys.Console Sys.Modify VM.Allocate VM.Audit VM.Clone VM.Config.CDROM VM.Config.Cloudinit VM.Config.CPU VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Migrate VM.Monitor VM.PowerMgmt"
+pveum user add terraform-prov@pve --password secure1234
+pveum aclmod / -user terraform-prov@pve -role TerraformProv
+```
+
+créer un token
+
+```shell
+pveum user token add terraform-prov@pve terraform -expire 0 -privsep 0 -comment "Terraform token"
+```
+
+
+
+:warning:  Avant de continuer il faut ajouter le fichier **`terraform.tfvars`** dans le dossier **Proxmox/iac/etape2**
+
+(i) remplacer 192.168.1.64 par votre ip local
+
+```
+proxmox_api_url = "https://192.168.1.64:8006/api2/json"
+ssh_key = "votre clef public"
+```
+
+
 
 Provisionner des vms pour la mise en place d'un cluster k8s avec kubeadm
 
