@@ -6,6 +6,8 @@
 
 ## Proxmox
 
+![](./Images/proxmox.png)
+
 :eyes: https://www.proxmox.com/en/
 
 Télécharge l'iso de la version **7.4-1**
@@ -178,6 +180,12 @@ cd Kubernetes/iac
 ansible-playbook -u ubuntu setup-k8s.yml
 
 ```
+
+
+
+![](./Images/k8s-ready-to-use.png)
+
+
 
 
 
