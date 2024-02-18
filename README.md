@@ -226,11 +226,13 @@ brew install derailed/k9s/k9s
 
 ### Comment configurer k9s pour se connecter au cluster k8s ?
 
-Pour interagir avec mon cluster k8s, k9s lit les informations du fichier `~/.kube/config` ce fichier et ce dossier n'existe pas encore sur mon poste de travail.
+Pour interagir avec mon cluster k8s, k9s doit lire les informations du fichier `~/.kube/config`, ce fichier et ce dossier n'existe pas encore sur mon poste de travail.
 
-je me connecte donc à ma vm `k8s-0` et je récupère le contenu du fichier `.kube/config` (context admin qu'on pourra changer par la suite...).
+Tout d'abord je me connecte à ma vm `k8s-0` et je récupère le contenu du fichier `.kube/config` (context admin qu'on pourra changer par la suite...), puis 
 
-Sur votre pc de travail je crée un dossier .kube et dans ce dossier j'ajoute un fichier config et je colle le contenue que je viens de copier et voilà lancer k9s...
+sur mon pc de travail je crée un dossier `.kube` et dans ce dossier j'ajoute un fichier `config` et je colle le contenue que je viens de copier et voilà!!! :tada: 
+
+Lancer k9s dans une invite de commande...
 
 ![](./Images/k9s-ready-to-use.png)
 
