@@ -206,6 +206,34 @@ ansible-playbook -u ubuntu setup-k8s.yml
 
  :tada: Enjoy!!!!
 
+# Outils
+
+## k9s
+
+![](./Images/k9s.png)
+
+
+
+[K9S](https://k9scli.io/) c'est un outil écrit en GO, qui permet de gérer un cluster Kubernetes avec tout plein de raccourcis et de couleurs :smiley:. 
+
+### Comment l'installer ?
+
+> sous linux installer [homebrew](https://docs.brew.sh/Installation)
+
+```shell
+brew install derailed/k9s/k9s
+```
+
+### Comment configurer k9s pour se connecter au cluster k8s ?
+
+Pour interagir avec mon cluster k8s, k9s lit les informations du fichier `~/.kube/config` ce fichier et ce dossier n'existe pas encore sur mon poste de travail.
+
+je me connecte donc à ma vm `k8s-0` et je récupère le contenu du fichier `.kube/config` (context admin qu'on pourra changer par la suite...).
+
+Sur votre pc de travail je crée un dossier .kube et dans ce dossier j'ajoute un fichier config et je colle le contenue que je viens de copier et voilà lancer k9s...
+
+![](./Images/k9s-ready-to-use.png)
+
 # Index
 
 ## Comment ajouter ajouter un espace de stockage
