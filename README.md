@@ -28,7 +28,7 @@ echo "55b672c4b0d2bdcbff9910eea43df3b269aaab3f23e7a1df18b82d92eb995916 proxmox-v
 
 ### Comment créer une clef usb boutable
 
-> on peut aussi utiliser le [ventoy](https://www.ventoy.net/en/index.html) pour créer un clef usb avec plusieurs iso bootable
+> on peut aussi utiliser [ventoy](https://www.ventoy.net/en/index.html) pour créer un clef usb avec plusieurs iso bootable
 
 Afficher la liste des supports et disques connectés avec leurs détails.
 
@@ -86,13 +86,13 @@ sudo dd if=./proxmox-ve_7.4-1.iso of=/dev/sdb status=progress
 
 connexion en ssh au serveur proxmox
 
-créer un paire de clef
+créer une paire de clef
 
 ```shell
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/proxmox -C "root@192.168.1.64"
 ```
 
-> :information_source: *avec une passe phrase si necessaire*
+> :information_source: *avec une passphrase si necessaire*
 >
 > ```shell
 > ls -al ~/.ssh
