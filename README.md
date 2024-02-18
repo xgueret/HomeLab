@@ -238,6 +238,21 @@ Lancer k9s dans une invite de commande...
 
 ![](./Images/k9s-ready-to-use.png)
 
+Vous aurez aussi besoin d'installer le cli `kubectl`  sur votre poste de travail [[doc](https://kubernetes.io/fr/docs/tasks/tools/install-kubectl/)]
+
+```shell
+# Debian/ubuntu
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+```
+
+
+
+*(i) par exemple dans k9s lorsque vous voulez editer le manifest d'un pod*
+
 # Index
 
 ## Comment ajouter ajouter un espace de stockage
